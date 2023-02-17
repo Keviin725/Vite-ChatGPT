@@ -1,4 +1,3 @@
-<script setup>
 import bot from './assets/bot.svg'
 import user from './assets/user.svg'
 const form = document.querySelector('form')
@@ -62,34 +61,19 @@ function typeText(element, text){
     //bot chatStripe
     const uniqueId = generateUniqueId()
     chatContainer.innerHTML+= chatStripe(true, " ", uniqueId)
-    
+
     //scroll the view while the bot's typing
     chatContainer.scrollTop = chatContainer.scrollHeight
 
     const messageDiv = document.getElementById(uniqueId)
 
-
+    loader(messageDiv)
   }
+  form.addEventListener('submit', handleSubmit)
+  //submit using enter button
+  form.addEventListener('keyup', (e)=>{
+    if (e.keyCode===13) {
+      handleSubmit(e)
+    }
+  })
 }
-</script>
-
-
-
-
-
-
-<template>
-  <div id="app">
-    <div id="chat_container"></div>
-    <form action="">
-      <textarea name="prompt" id="" cols="1" rows="1" placeholder="Ask Something..." ></textarea>
-      <button type="submit"><img src="./assets/send.svg" alt=""></button>
-    </form>
-
-  </div>
-
-</template>
-
-<style scoped>
-  
-</style>
