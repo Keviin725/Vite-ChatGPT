@@ -1,30 +1,60 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import bot from './assets/bot.svg'
+import user from './assets/user.svg'
+const form = document.querySelector('form')
+const chatContainer = document.querySelector('#chat_container')
+
+let loadInterval
+
+// Loader while await the response
+function loader(element) {
+  element.textContent = ''
+  loadInterval = setInterval(()=>{
+    element.textContent += '.'
+
+    if(element.textContent === '....'){
+      element.textContent= ''
+    }
+  },300)
+}
+// Type text letter by letter
+function typeText(element, text){
+  let index = 0
+  let interval = setInterval(()=>{
+    if(index < text.length){
+      element.innerHTML += text.charAt(index)
+      index++
+    }else{
+      clearInterval(interval)
+    }
+  },20)
+
+  function generateUniqueId(){
+    const timestamp = Date.now()
+    const randomNumber = Math.random()
+    const hexadecimalString = randomNumber.toString(16)
+    return `id-${timestamp}-${hexadecimalString}`
+  }
+}
 </script>
 
+
+
+
+
+
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div id="app">
+    <div id="chat_container"></div>
+    <form action="">
+      <textarea name="promnt" id="" cols="1" rows="1" placeholder="Ask Something..." ></textarea>
+      <button type="submit"><img src="./assets/send.svg" alt=""></button>
+    </form>
+
   </div>
-  <HelloWorld msg="Vite + Vue" />
+
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+  
 </style>
